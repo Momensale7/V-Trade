@@ -1,6 +1,9 @@
 import './App.css'
 import {ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toastify
+import Home from './Pages/home/home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import ProductDetails from './Pages/productDetails';
 
 
 function App() {
@@ -39,6 +42,14 @@ function App() {
       >fireToast</button>
 
     <ToastContainer />
+
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />}/>
+        <Route path='/product/:productID' element={<ProductDetails />}/>
+      </Routes>
+    </BrowserRouter>
+  
     </>
   )
 }
