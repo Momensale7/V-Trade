@@ -4,11 +4,10 @@ const INITIAL_VALUE = {
     products: [],
     status: 'idle',
     error: null,
-    product:{}
 };
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", async () => {
-    const res = await fetch("https://ecommerce.routemisr.com/api/v1/products");
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async (url_api) => {
+    const res = await fetch(url_api);
     const result = await res.json();
     return result.data;
 });

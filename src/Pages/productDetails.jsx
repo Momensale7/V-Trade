@@ -41,7 +41,7 @@ function ProductDetails(){
             <div className="basis-[35%]">
                 <img src={product.imageCover} alt="" className="rounded-2xl border-2 h-[34rem] drop-shadow-xl w-full hover:border-gray-500 cursor-pointer"/>
             </div>
-            <div className="basis-[50%] flex flex-col gap-y-5">
+            <div className="basis-[50%] flex flex-col gap-y-7">
                 <h1 className="font-black text-4xl">{product.title}</h1>
                 <div>
                     <FontAwesomeIcon icon={faStar} className='text-sm pl-1 text-yellow-300 cursor-pointer'/>
