@@ -11,8 +11,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "@headlessui/react": "^2.1.2",
+    "@heroicons/react": "^2.1.5",
     "@reduxjs/toolkit": "^2.2.7",
+    "@tsparticles/react": "^3.0.0",
     "axios": "^1.7.4",
+    "flowbite": "^2.5.1",
+    "flowbite-react": "^0.10.1",
     "formik": "^2.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
@@ -20,6 +25,8 @@
     "react-router-dom": "^6.26.0",
     "react-slick": "^0.30.2",
     "react-toastify": "^10.0.5",
+    "react-tsparticles": "^2.12.2",
+    "tsparticles": "^3.5.0",
     "yup": "^1.4.0"
   },
   "devDependencies": {

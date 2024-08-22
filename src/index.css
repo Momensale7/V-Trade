@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.active{
+    background: rgb(156,163,175) ;
+}
+.customContainer {
+    @apply mx-auto px-6 lg:px-0 lg:w-[90%];
+  }
