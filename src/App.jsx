@@ -5,6 +5,7 @@ import Home from './Pages/home';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import ProductDetails from './Pages/productDetails';
 import Favorites from './Pages/favorites';
+import Products from './Pages/Products';
 
 
 function App() {
@@ -47,6 +48,7 @@ function App() {
     <BrowserRouter>
         {/* for try */}
         <Link to={'/favorites'} className='text-red-600 font-bold px-3'>Favorites</Link>
+        <Link to={'/products'} className='text-red-600 font-bold px-3'>Products</Link>
         <Link to={'/home'} className='text-red-600 font-bold px-3'>Home</Link>
 
       <Routes>
@@ -54,6 +56,7 @@ function App() {
         <Route path='/home' element={<Home />}/>
         <Route path='/product/:productID' element={<ProductDetails />}/>
         <Route path='/favorites' element={<Favorites />}/>
+        <Route path='/products' element={<Products />}/>
       </Routes>
     </BrowserRouter>
   
