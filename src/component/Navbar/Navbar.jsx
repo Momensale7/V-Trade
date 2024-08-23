@@ -12,6 +12,7 @@ import {
   Transition,
 } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import { useSelector } from "react-redux"
 // import { classNames } from '../../Helpers/Helpers'
 import { Link, NavLink, } from 'react-router-dom'
 
@@ -19,17 +20,19 @@ const navigation = [
   { name: 'Home', href: '', current: true },
   { name: 'Products', href: 'products', current: false },
   { name: 'categories', href: 'categories', current: false },
-  { name: 'brands', href: 'brands', current: false },
+  { name: 'Favorites', href: 'favorites', current: false },
 ]
 
 
 
 export default function Navbar() {
+  let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn)
+
      function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
       }
     return <>
-    <Disclosure as="nav" className="bg-black relative z-[999999] ">
+    <Disclosure as="nav" className="bg-black relative z-[10] ">
       {({ open }) => (
         <>
           <div className="customContainer ">
@@ -73,8 +76,8 @@ export default function Navbar() {
                   </div>
                 </div>
                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-              
-            {<NavLink
+              { }
+            {!isUserLoggedIn &&<NavLink
                         
                         to={"login"}
                         className={classNames(
@@ -84,7 +87,7 @@ export default function Navbar() {
                       >
                         Login
                       </NavLink>}
-                {<NavLink
+                {!isUserLoggedIn &&<NavLink
                         
                         to={"register"}
                         className={classNames(
@@ -115,7 +118,7 @@ export default function Navbar() {
                         <i className="fa-solid fa-heart text-red-400"><span className=" text-[8px] relative bottom-2">{wishCount}</span></i>
                       </Link>} */}
               
-                {<Menu as="div" className="relative ml-3">
+                {isUserLoggedIn &&<Menu as="div" className="relative ml-3">
                   <div>
                     <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                       <span className="absolute -inset-1.5" />
