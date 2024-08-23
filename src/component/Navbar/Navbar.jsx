@@ -1,6 +1,5 @@
-
 // import { Fragment } from 'react'
-import logo  from "../../assets/images/logo.svg"
+import logo from "../../assets/images/logo.svg";
 import {
   Disclosure,
   DisclosureButton,
@@ -10,11 +9,13 @@ import {
   MenuItem,
   MenuItems,
   Transition,
+
 } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useSelector } from "react-redux"
+
 // import { classNames } from '../../Helpers/Helpers'
-import { Link, NavLink, } from 'react-router-dom'
+import { Link, NavLink } from "react-router-dom";
 
 const navigation = [
   { name: 'Home', href: '', current: true },
@@ -50,15 +51,20 @@ export default function Navbar() {
                 </DisclosureButton>
               </div>
               {/* <div className="flex flex-1 items-center  md:justify-between ms-10 sm:items-stretch sm:justify-start"> */}
+
+
                 <div className="flex flex-shrink-0 items-center ms-10 lg:ms-0 ">
                   <img
                     className="h-12 text-center "
                     src={logo}
                     alt="Your Company"
                   />
-                <span className="text-white font-bold text-2xl"> V-Trade</span>
-                {/* </div> */}
-              </div>
+                  <span className="text-white font-bold text-2xl">
+                    {" "}
+                    V-Trade
+                  </span>
+                  {/* </div> */}
+                </div>
                 <div className="hidden sm:ml-6 md:block">
                   <div className="flex space-x-4 ">
                     {navigation.map((item) => (
@@ -66,15 +72,16 @@ export default function Navbar() {
                         key={item.name}
                         to={item.href}
                         className={classNames(
-                          'text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium'
+                          "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
                         )}
-                        aria-current={item.current ? 'page' : undefined}
+                        aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
                       </NavLink>
                     ))}
                   </div>
                 </div>
+
                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
               { }
             {!isUserLoggedIn &&<NavLink
@@ -98,6 +105,7 @@ export default function Navbar() {
                         Register
                       </NavLink>}
                 {/* {<Link
+
                         
                         to={"cart"}
                         className={classNames(
@@ -107,7 +115,7 @@ export default function Navbar() {
                       >
                         <i className="fa-solid fa-cart-shopping text-[#0fc80f]"><span className=" text-[8px] relative bottom-2">{cartCount}</span></i>
                       </Link>} */}
-                {/* {isUserLoggedIn &&<Link
+                  {/* {isUserLoggedIn &&<Link
                         
                         to={"wishlist"}
                         className={classNames(
@@ -181,31 +189,34 @@ export default function Navbar() {
                   </Transition>
                 </Menu>}
                 
+
               </div>
             </div>
-          </div>
 
-          {<DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
-                <NavLink
-                  key={item.name}
-                  as="a"
-                  to={item.href}
-                  className={classNames(
-                    'text-white ','hover:text-gray-400',
-                    'block rounded-md px-3 py-2 text-base font-medium text-center'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
-                >
-                  {item.name}
-                </NavLink>
-              ))}
-            </div>
-          </DisclosurePanel>}
-        </>
-      )}
-    </Disclosure>
+            {
+              <DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
+                <div className="space-y-1 px-2 pb-3 pt-2">
+                  {navigation.map((item) => (
+                    <NavLink
+                      key={item.name}
+                      as="a"
+                      to={item.href}
+                      className={classNames(
+                        "text-white ",
+                        "hover:text-gray-400",
+                        "block rounded-md px-3 py-2 text-base font-medium text-center"
+                      )}
+                      aria-current={item.current ? "page" : undefined}
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
+              </DisclosurePanel>
+            }
+          </>
+        )}
+      </Disclosure>
     </>
-
+  );
 }

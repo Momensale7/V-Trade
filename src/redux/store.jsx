@@ -1,12 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 import getProductSlice from "./Slicers/getProductsSlice";
 import favoritesProductsSlice from "./Slicers/favoritesProductsSlice";
-import isLoggedIn from "./Slicers/isLoggedIn";
 
+
+import adminProducts from "./Slicers/adminProducts";
+import adminCategory from "./Slicers/adminCategorySlice";
+import isLoggedIn from "./Slicers/isLoggedIn";
 export const store = configureStore({
-    reducer: {
-        products: getProductSlice,
-        favorites: favoritesProductsSlice,
-        isLoggedIn,
-    }
+  reducer: {
+    products: getProductSlice,
+    favorites: favoritesProductsSlice,
+    adminProducts: adminProducts,
+    adminCategory: adminCategory,
+    isLoggedIn, 
+  },
 });

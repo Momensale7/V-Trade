@@ -12,7 +12,7 @@ function Home() {
     const dispatch = useDispatch();
     const { products, status, error } = useSelector((state) => state.products);
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(9);
+    const [limit, setLimit] = useState(3);
 
     const url_api = "https://ecommerce.routemisr.com/api/v1/products";
 

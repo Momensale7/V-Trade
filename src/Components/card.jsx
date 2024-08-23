@@ -61,8 +61,8 @@ function Card({ title, image, price, id, rate, currentProduct }) {
     }
     return (
         <>
-            <div>
-                <div className='bg-white drop-shadow-xl rounded-lg overflow-hidden h-96'>
+            <div className='hover:scale-105 hover:drop-shadow-lg duration-300'>
+                <div className='bg-white drop-shadow-xl rounded-lg overflow-hidden h-80'>
                     <Link to={`/product/${id}`}>
                         <img src={image} className=' w-full h-full cursor-pointer' />
                     </Link>
@@ -80,15 +80,17 @@ function Card({ title, image, price, id, rate, currentProduct }) {
                         <span className="font-bold">{rate}/</span><span>5</span>
                     </div>
                     <p className='font-bold text-lg'>${price}</p>
+
                     <button>
                         {isLoading ? <i className="fas fa-spin fa-spinner text-sky-400"></i>
                             :
                             <FontAwesomeIcon onClick={() => { addTooCart(id) }} icon={faCartShopping} className='text-sky-400 cursor-pointer text-xl hover:text-yellow-300 transition-all hover:scale-110 duration-300' title='Add To Cart' />
                         }
                     </button>
+
                     <FontAwesomeIcon
                         icon={faHeart}
-                        className={`absolute top-9 right-5 ${isFavorite === true ? 'text-red-600' : 'text-black'} text-2xl hover:text-red-600 cursor-pointer`}
+                        className={`mx-4 hover:scale-125 duration-150 ${isFavorite === true ? 'text-red-600' : 'text-black'} text-2xl hover:text-red-600 cursor-pointer`}
                         title={isFavorite === true ? "Remove From Favorites" : "Add To Favorites"}
                         onClick={() => addRemoveFavorite(!isFavorite)}
                     />
