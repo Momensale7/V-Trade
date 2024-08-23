@@ -1,64 +1,61 @@
-import './App.css'
-import {ToastContainer, toast } from "react-toastify";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toastify
+
+import Register from './pages/Register/Register';
+import Login from './pages/Login/Login';
+import Footer from './component/Footer/Footer';
+import Navbar from './component/Navbar/Navbar';
+
 import Home from './Pages/home';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import ProductDetails from './Pages/productDetails';
 import Favorites from './Pages/favorites';
+import Products from './Pages/Products';
 
+
+
+import Home from "./Pages/home";
+// import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import ProductDetails from "./Pages/productDetails";
+import Favorites from "./Pages/favorites";
+import Dashboard from "./Pages/dashboard/Dashboard";
+import Stats from "./component/stats/Stats";
+import Setting from "./component/setting/Setting";
+import Orders from "./component/orders/Orders";
+import ProudctsAdmin from "./component/productsdash/ProudctsAdmin";
+import AddProduct from "./component/addproduct/AddProduct";
 
 function App() {
-  //* toast wiil be very important for confirmation
-  const fireToast=()=>{
-    toast.info(
-      <div>
-        <span>Are you sure you want to delete this item?</span>
-        <button onClick={()=>{console.log('deleted'),toast.dismiss();}} 
-        className="ml-4 p-2 bg-red-500 text-white rounded">Delete</button>
-        <button onClick={() => toast.dismiss()} className="ml-2 p-2 bg-gray-500 text-white rounded">Cancel</button>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: false,  // Keep the toast visible until manually closed
-        hideProgressBar: true,
-        closeOnClick: false,
-        pauseOnHover: false,
-        draggable: false,
-        theme: "light",
-      }
-    );
-  };
-    
   return (
     <>
-    {/* expamle of tilwind classes  */}
-    <p className='p-8 text-red-500 text-center fa-2xl
-                  hover:text-blue-900 dark:text-white dark:bg-slate-950'
-    >يلا يا رجالة</p>
 
+      <BrowserRouter>
+        <Navbar />
+        <Routes>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/product/:productID" element={<ProductDetails />} />
+          <Route path="/favorites" element={<Favorites />} />
+                      <Route path='/products' element={<Products />}/>
 
-    {/* example of toast */}
-    <button onClick={()=>{fireToast()}} 
-    className='block m-auto bg-blue-500 text-white p-3 rounded-md drop-shadow-md border'
-      >fireToast</button>
-
-    <ToastContainer />
-    
-    <BrowserRouter>
-        {/* for try */}
-        <Link to={'/favorites'} className='text-red-600 font-bold px-3'>Favorites</Link>
-        <Link to={'/home'} className='text-red-600 font-bold px-3'>Home</Link>
-
-      <Routes>
-        <Route path='/' element={<Home />}/>
-        <Route path='/home' element={<Home />}/>
-        <Route path='/product/:productID' element={<ProductDetails />}/>
-        <Route path='/favorites' element={<Favorites />}/>
-      </Routes>
-    </BrowserRouter>
-  
+          <Route path="/dashboard" element={<Dashboard />}>
+            <Route index element={<Stats />} />
+            <Route path="stats" element={<Stats />} />
+            <Route path="productsadmin" element={<ProudctsAdmin />} />
+            <Route path="add-product" element={<AddProduct />} />
+            <Route path="orders" element={<Orders />} />
+            <Route path="setting" element={<Setting />} />
+          </Route>
+        </Routes>
+        <Footer />
+      </BrowserRouter>
     </>
-  )
+  );
+
 }
 
-export default App
+export default App;

@@ -4,20 +4,40 @@ import { fetchProducts } from "../redux/Slicers/getProductsSlice";
 import Loader from '../Components/Loader/loader';
 import Card from "../Components/card";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
 //https://ecommerce.routemisr.com/api/v1/products?page=1&limit=5
 function Home() {
     const dispatch = useDispatch();
     const { products, status, error } = useSelector((state) => state.products);
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(3);
 
+    const url_api = "https://ecommerce.routemisr.com/api/v1/products";
 
     useEffect(() => {
-        if (status === 'idle') {
-            dispatch(fetchProducts());
-        }
-    }, [dispatch, status]);
+
+        dispatch(fetchProducts(`${url_api}?page=${page}&limit=${limit}`));
+
+    }, [dispatch,limit,page]);
 
     let content;
+
+    // Navigation
+    const goToPrevPage = () => {
+        if (page == 0) {
+            setPage(0);
+        }else{
+            const newPage = page - 1;
+            setPage(newPage);
+        }
+        
+    }
+    const goToNextPage = () => {
+        const newPage = page + 1;
+        setPage(newPage);
+    }
 
 
     if (status === 'loading') {
@@ -44,8 +64,12 @@ function Home() {
 
     return (
         <>
-            <div className="container">
+            <div className="px-8 my-5">
                 {content}
+            </div>
+            <div className="text-center my-5 text-3xl">
+                <FontAwesomeIcon icon={faAngleLeft} className = {`border-2 p-3 text-gray-500 border-gray-500 ${page == 0? "cursor-no-drop" : "cursor-pointer"} me-3 rounded-md hover:bg-slate-200 hover:scale-105 duration-75" title="Previous`} onClick={() => goToPrevPage()}/>
+                <FontAwesomeIcon icon={faAngleRight} className={`border-2 p-3 text-gray-500 border-gray-500 ${page == (products.lengrh - 1)? "cursor-no-drop" : "cursor-pointer"} ms-3 rounded-md hover:bg-slate-200 hover:scale-105 duration-75" title="Next`} onClick={() => goToNextPage()}/>
             </div>
         </>
     );
