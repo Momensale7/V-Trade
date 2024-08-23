@@ -10,7 +10,6 @@ import Footer from './component/Footer/Footer';
 import Navbar from './component/Navbar/Navbar';
 
 import Home from './Pages/home';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ProductDetails from './Pages/productDetails';
 import Favorites from './Pages/favorites';
 
@@ -18,20 +17,14 @@ import Cart from './Pages/Cart/Cart';
 import { ToastContainer } from 'react-toastify';
 
 import Products from './Pages/Products';
-
-
-
-
-import Home from "./Pages/home";
 // import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import ProductDetails from "./Pages/productDetails";
-import Favorites from "./Pages/favorites";
 import Dashboard from "./Pages/dashboard/Dashboard";
 import Stats from "./component/stats/Stats";
 import Setting from "./component/setting/Setting";
 import Orders from "./component/orders/Orders";
 import ProudctsAdmin from "./component/productsdash/ProudctsAdmin";
 import AddProduct from "./component/addproduct/AddProduct";
+import Shipping from "./Pages/Shipping/Shipping";
 
 function App() {
   return (
@@ -39,7 +32,7 @@ function App() {
 
       <BrowserRouter>
         <Navbar />
-  <ToastContainer/>
+        <ToastContainer />
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
@@ -47,8 +40,9 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/product/:productID" element={<ProductDetails />} />
           <Route path="/favorites" element={<Favorites />} />
-                      <Route path='/products' element={<Products />}/>
-<Route path='/cart' element={<Cart />}/>
+          <Route path='/products' element={<Products />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/shipping/:cartId' element={<Shipping />} />
           <Route path="/dashboard" element={<Dashboard />}>
             <Route index element={<Stats />} />
             <Route path="stats" element={<Stats />} />

@@ -143,7 +143,7 @@ export default function Cart() {
             <div className='flex justify-between items-center mt-5'><p className="font-light md: text-xs">Total number of items</p>
               <span className="text-black font-semibold ms-1">{userCart?.numOfCartItems}</span>
               </div>
-            <Link to={"/details/" + userCart.data._id} className="mt-5 block text-center bg-main text-white bg-black p-2 hover:bg-slate-300 hover:text-slate-900 hover:border  font-medium rounded-lg">go to Check Out</Link>
+            <Link to={"/shipping/" + userCart.data._id} className="mt-5 block text-center bg-main text-white bg-black p-2 hover:bg-slate-300 hover:text-slate-900 hover:border  font-medium rounded-lg">go to Check Out</Link>
           </div>
         </div>
         </div>

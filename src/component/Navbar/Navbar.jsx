@@ -9,12 +9,9 @@ import {
   MenuItem,
   MenuItems,
   Transition,
-
 } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { useSelector } from "react-redux"
-
-// import { classNames } from '../../Helpers/Helpers'
 import { Link, NavLink } from "react-router-dom";
 
 const navigation = [
@@ -193,8 +190,7 @@ export default function Navbar() {
               </div>
             </div>
 
-            {
-              <DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
+            {<DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
                 <div className="space-y-1 px-2 pb-3 pt-2">
                   {navigation.map((item) => (
                     <NavLink
@@ -210,13 +206,13 @@ export default function Navbar() {
                     >
                       {item.name}
                     </NavLink>
-                  ))}
-                </div>
-              </DisclosurePanel>
-            }
-          </>
-        )}
-      </Disclosure>
-    </>
-  );
-}
+                 ))}
+                 </div>
+               </DisclosurePanel>}
+             </div>
+             </>
+           )}
+         </Disclosure>
+         </>
+     
+     }
