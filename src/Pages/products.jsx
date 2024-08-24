@@ -139,7 +139,7 @@ function Products(){
 
 
             {/* Products */}
-            <div className="basis-[75%]">
+            <div className="basis-[75%] mt-10 px-10">
                 {content}
                 <div className="text-center my-5 text-3xl">
                     <FontAwesomeIcon icon={faAngleLeft} className = {`border-2 px-3 py-2 text-gray-500 border-gray-500 ${page == 0? "cursor-no-drop" : "cursor-pointer"} me-3 rounded-md hover:bg-slate-200 hover:scale-105 duration-75" title="Previous`} onClick={() => goToPrevPage()}/>
