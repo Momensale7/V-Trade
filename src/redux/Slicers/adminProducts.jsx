@@ -50,7 +50,9 @@ const productAdminSlice = createSlice({
 
     updateProdcut: (state, action) => {
       state.adminProducts = state.adminProducts.map((element) =>
-        element.id === action.payload.id ? action.payload : element
+        element.id === action.payload.id
+          ? { ...element, ...action.payload }
+          : element
       );
       localStorage.setItem(
         "adminProducts",

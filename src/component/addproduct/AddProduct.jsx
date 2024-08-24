@@ -2,6 +2,7 @@ import "./addProduct.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addProduct } from "../../redux/Slicers/adminProducts";
+import { useNavigate } from "react-router-dom";
 
 // const initialProducts = [
 //   {
@@ -31,7 +32,7 @@ function AddProduct() {
   // const adminProducts = useSelector(
   //   (state) => state.adminProducts.adminProducts
   // );
-
+  const navigate = useNavigate();
   const adminCategory = useSelector(
     (state) => state.adminCategory.admincategory
   );
@@ -66,10 +67,14 @@ function AddProduct() {
     };
 
     dispatch(addProduct(newItem));
+
     setTitle("");
     setCategory("");
     setPrice(0);
     setStock(0);
+    setDesc("");
+    setImage("");
+    navigate("/dashboard/productsadmin");
   }
   return (
     <div className="add-product">
