@@ -11,8 +11,9 @@ import {
   Transition,
 } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
-import { useSelector } from "react-redux"
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux"
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { changeAuth } from "../../redux/Slicers/isLoggedIn";
 
 const navigation = [
   { name: 'Home', href: '', current: true },
@@ -25,7 +26,13 @@ const navigation = [
 
 export default function Navbar() {
   let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn)
-
+    const dispatch =useDispatch()
+    const navigate =useNavigate()
+    const logOut=()=>{
+      localStorage.removeItem("token")
+      dispatch(changeAuth(false))
+      navigate("/")
+    }
      function classNames(...classes) {
         return classes.filter(Boolean).join(' ')
       }
@@ -143,44 +150,43 @@ export default function Navbar() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <MenuItems className="absolute bg-black border  right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none">
+                    <MenuItems className="absolute bg-black border text-center  right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none">
                       <MenuItem>
                           <Link
                             to="cart"
-                            className= 'focus:bg-gray-100 block px-4 py-2 text-sm text-white'
+                            className= 'hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white'
                           >
-                            Cart <span className="ms-3 border rounded px-2 border-[#0fc80f]" ></span>
+                            Cart <i className="fa-solid fa-cart-shopping"></i>
                           </Link>
                       
                       </MenuItem>
                       <MenuItem>
                           <Link
-                            to="wishlist"
-                            className= 'focus:bg-gray-100 block px-4 py-2 text-sm text-white'
+                            to="favorites"
+                            className= 'hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white'
                           >
-                            Wish List <span className="ms-3 border rounded px-2 border-red-500" ></span>
+                            favourites <i className="fa-regular fa-heart"></i>
                           </Link>
                       
                       </MenuItem>
                       <MenuItem>
                           <Link
                             to="allorders"
-                            className= 'focus:bg-gray-100 block px-4 py-2 text-sm text-white'
+                            className= 'hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white'
                           >
-                          Orders 
+                          Orders <i className="fa-solid fa-wallet"></i>
                           </Link>
                       
                       </MenuItem>
                       <MenuItem>
-                        {({ focus }) => (
+                        
                           <button
-                        //   onClick={logOut}
-                            
-                            className={classNames(focus ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-white w-full text-start')}
-                          >
-                            Sign out
+                          onClick={logOut}
+                            className= 'hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white'
+                            >
+                            Sign out <i className="fa-solid fa-arrow-right-from-bracket"></i>
                           </button>
-                        )}
+                       
                       </MenuItem>
                     </MenuItems>
                   </Transition>
