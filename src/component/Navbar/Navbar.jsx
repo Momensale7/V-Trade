@@ -11,25 +11,45 @@ import {
   Transition,
 } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-
-// import { classNames } from '../../Helpers/Helpers'
-import { Link, NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { changeAuth } from "../../redux/Slicers/isLoggedIn";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
 
 const navigation = [
   { name: "Home", href: "", current: true },
   { name: "Products", href: "products", current: false },
   { name: "categories", href: "categories", current: false },
-  { name: "brands", href: "brands", current: false },
-  { name: "dashboard", href: "dashboard", current: false },
+  { name: "Favorites", href: "favorites", current: false },
+  { name: "Dashboard", href: "dashboard", current: false },
 ];
 
 export default function Navbar() {
+  const {theme,setTheme} = useContext(ThemeContext);
+
+  const changeTheme = (event) => {
+    setTheme(event.target.value)
+    localStorage.setItem('theme' , event.target.value);
+    // console.log(theme)
+  }
+  
+  let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const logOut = () => {
+    localStorage.removeItem("token");
+    dispatch(changeAuth(false));
+    navigate("/");
+  };
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
   return (
     <>
-      <Disclosure as="nav" className="bg-black relative z-[999999] ">
+      <Disclosure as="nav" className="bg-black dark:bg-gray-900 relative z-[10] ">
         {({ open }) => (
           <>
             <div className="customContainer ">
@@ -47,6 +67,7 @@ export default function Navbar() {
                   </DisclosureButton>
                 </div>
                 {/* <div className="flex flex-1 items-center  md:justify-between ms-10 sm:items-stretch sm:justify-start"> */}
+
                 <div className="flex flex-shrink-0 items-center ms-10 lg:ms-0 ">
                   <img
                     className="h-12 text-center "
@@ -74,9 +95,21 @@ export default function Navbar() {
                       </NavLink>
                     ))}
                   </div>
+                  
+                </div>
+                {/* theme */}
+                <div className="flex flex-row justify-center items-center">
+                  <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
+                        <option value="light" >Light</option>
+                        <option value="dark">Dark</option>
+                  </select>
+                  {theme === 'dark'?  <FontAwesomeIcon icon={faMoon} className="text-white text-xl"/> : 
+                    <FontAwesomeIcon icon={faSun} className="text-white text-xl"/>
+                  }
                 </div>
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  {
+                  {}
+                  {!isUserLoggedIn && (
                     <NavLink
                       to={"login"}
                       className={classNames(
@@ -86,8 +119,8 @@ export default function Navbar() {
                     >
                       Login
                     </NavLink>
-                  }
-                  {
+                  )}
+                  {!isUserLoggedIn && (
                     <NavLink
                       to={"register"}
                       className={classNames(
@@ -97,8 +130,9 @@ export default function Navbar() {
                     >
                       Register
                     </NavLink>
-                  }
+                  )}
                   {/* {<Link
+
                         
                         to={"cart"}
                         className={classNames(
@@ -119,7 +153,7 @@ export default function Navbar() {
                         <i className="fa-solid fa-heart text-red-400"><span className=" text-[8px] relative bottom-2">{wishCount}</span></i>
                       </Link>} */}
 
-                  {
+                  {isUserLoggedIn && (
                     <Menu as="div" className="relative ml-3">
                       <div>
                         <MenuButton className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -140,76 +174,69 @@ export default function Navbar() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <MenuItems className="absolute bg-black border  right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none">
+                        <MenuItems className="absolute bg-black border text-center  right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none">
                           <MenuItem>
                             <Link
                               to="cart"
-                              className="focus:bg-gray-100 block px-4 py-2 text-sm text-white"
+                              className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Cart{" "}
-                              <span className="ms-3 border rounded px-2 border-[#0fc80f]"></span>
+                              Cart <i className="fa-solid fa-cart-shopping"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
                             <Link
-                              to="wishlist"
-                              className="focus:bg-gray-100 block px-4 py-2 text-sm text-white"
+                              to="favorites"
+                              className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Wish List{" "}
-                              <span className="ms-3 border rounded px-2 border-red-500"></span>
+                              favourites <i className="fa-regular fa-heart"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
                             <Link
                               to="allorders"
-                              className="focus:bg-gray-100 block px-4 py-2 text-sm text-white"
+                              className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Orders
+                              Orders <i className="fa-solid fa-wallet"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
-                            {({ focus }) => (
-                              <button
-                                //   onClick={logOut}
-
-                                className={classNames(
-                                  focus ? "bg-gray-100" : "",
-                                  "block px-4 py-2 text-sm text-white w-full text-start"
-                                )}
-                              >
-                                Sign out
-                              </button>
-                            )}
+                            <button
+                              onClick={logOut}
+                              className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
+                            >
+                              Sign out{" "}
+                              <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                            </button>
                           </MenuItem>
                         </MenuItems>
                       </Transition>
                     </Menu>
-                  }
+                  )}
                 </div>
               </div>
-            </div>
 
-            {
-              <DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
-                <div className="space-y-1 px-2 pb-3 pt-2">
-                  {navigation.map((item) => (
-                    <NavLink
-                      key={item.name}
-                      as="a"
-                      to={item.href}
-                      className={classNames(
-                        "text-white ",
-                        "hover:text-gray-400",
-                        "block rounded-md px-3 py-2 text-base font-medium text-center"
-                      )}
-                      aria-current={item.current ? "page" : undefined}
-                    >
-                      {item.name}
-                    </NavLink>
-                  ))}
-                </div>
-              </DisclosurePanel>
-            }
+              {
+                <DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
+                  <div className="space-y-1 px-2 pb-3 pt-2">
+                    {navigation.map((item) => (
+                      <NavLink
+                        key={item.name}
+                        as="a"
+                        to={item.href}
+                        className={classNames(
+                          "text-white ",
+                          "hover:text-gray-400",
+                          "block rounded-md px-3 py-2 text-base font-medium text-center"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                </DisclosurePanel>
+              }
+            </div>
           </>
         )}
       </Disclosure>
