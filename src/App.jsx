@@ -25,6 +25,9 @@ import Shipping from "./Pages/Shipping/Shipping";
 import Allorders from "./Pages/Allorders/Allorders";
 import { useDispatch } from "react-redux";
 import { changeAuth } from "./redux/Slicers/isLoggedIn";
+import ResetCode from "./Pages/ResetCode/ResetCode";
+import UpdatePasswoed from "./Pages/UpdatePasswoed/UpdatePasswoed";
+import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 
 function App() {
   const dispatch =useDispatch()
@@ -44,6 +47,9 @@ function App() {
         <Routes>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
+          <Route path="resetPass" element={<ResetPassword />} />
+          <Route path="updatepass" element={<UpdatePasswoed />} />
+          <Route path="restcode" element={<ResetCode />} />
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/product/:productID" element={<ProductDetails />} />
