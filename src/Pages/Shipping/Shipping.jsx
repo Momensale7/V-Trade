@@ -25,10 +25,10 @@ export default function Shipping() {
         onSubmit: payOnline,
         validationSchema
     })
-
+    
     async function payOnline() {
         setIsLoading(true)
-        let res = await axios.post("https://ecommerce.routemisr.com/api/v1/orders/checkout-session/" + cartId, {
+        let res = await axios.post(`https://ecommerce.routemisr.com/api/v1/orders/checkout-session/${cartId}`, {
             "shippingAddress": formik.values,
         }, {
             params: {
@@ -50,11 +50,38 @@ export default function Shipping() {
             progress: undefined,
             theme: "dark",
         });
+        payCash()
         setIsLoading(false)
         open(res.data.session.url, "_self")
 
     }
-
+    async function payCash() {
+        try {
+            let res = await axios.post("https://ecommerce.routemisr.com/api/v1/orders/" + cartId, {
+                "shippingAddress": formik.values,
+            },  {
+                headers: {
+                    token: localStorage.getItem("token")
+                }}
+            )
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+            
+        }
+      
+        // toast.success('order confirmed', {
+        //     position: "top-center",
+        //     autoClose: 2000,
+        //     hideProgressBar: false,
+        //     closeOnClick: true,
+        //     pauseOnHover: true,
+        //     draggable: true,
+        //     progress: undefined,
+        //     theme: "dark",
+        // });
+        
+    }
     return (
         <>
             <div className='my-10 customContainer'>
@@ -77,6 +104,7 @@ export default function Shipping() {
                                 {formik.errors.details && formik.touched.details && <p className='bg-red-300 text-white p-1 rounded-md my-1 text-sm '>{formik.errors.details}</p>}
                             </div>
                             <button type="submit" className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{isLoading ? <i className='fas fa-spinner fa-spin'></i> : "pay Now"}</button>
+                            {/* <button type="button" onClick={()=>{payCash()}} className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">{isLoading ? <i className='fas fa-spinner fa-spin'></i> : "pay Now"}</button> */}
                         </form>
                     </div>
                     <div className="col-span-7 text-right hidden md:block">
