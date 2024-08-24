@@ -64,7 +64,7 @@ function Home() {
 
     return (
         <>
-            <div className="px-8 my-5">
+            <div className= "customContainer my-10">
                 {content}
             </div>
             <div className="text-center my-5 text-3xl">

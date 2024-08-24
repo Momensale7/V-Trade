@@ -6,13 +6,14 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import loginImg from "../../assets/images/login.png";
 import Particlee from '../../component/Particles/Particles';
-
+import { useDispatch} from 'react-redux';
+import { changeAuth } from '../../redux/Slicers/isLoggedIn';
 export default function Login() {
   let [isloading, setIsloading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
   let [isFormActive, setIsFormActive] = useState(false); // Add this state for controlling particles
-
   const navigate = useNavigate();
+  const dispatch =useDispatch()
   
   const validationSchema = Yup.object({
     email: Yup.string().required("Email is required"),
@@ -33,6 +34,7 @@ export default function Login() {
     setErrorMessage("");
     axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', formik.values)
       .then((response) => {
+        dispatch(changeAuth(true))
         localStorage.setItem("token", response.data.token);
         setIsloading(false);
         navigate("/");
