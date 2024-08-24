@@ -61,14 +61,19 @@ function Card({ title, image, price, id, rate, currentProduct, stock }) {
   };
 
   const addRemoveFavorite = (isFavorite) => {
-    if (isFavorite) {
-      dispatch(addToFavorites(currentProduct));
-      fireToast("Added To Favorites.");
+    if (isUserLoggedIn) {
+      if (isFavorite) {
+        dispatch(addToFavorites(currentProduct));
+        fireToast("Added To Favorites.");
+      } else {
+        dispatch(removeFromFavorites(currentProduct));
+        fireToast("Removed From Favorites!");
+      }
     } else {
-      dispatch(removeFromFavorites(currentProduct));
-      fireToast("Removed From Favorites!");
+      goLogin();
     }
   };
+
   return (
     <>
       <div className="hover:scale-105 hover:drop-shadow-lg duration-300">
