@@ -7,7 +7,7 @@ import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toastify
 
 import ProductDetails from "./Pages/productDetails";
 import Favorites from "./Pages/favorites";
-import Products from "./Pages/Products";
+
 import Register from "./pages/Register/Register";
 import Login from "./pages/Login/Login";
 import Footer from "./component/Footer/Footer";
@@ -32,6 +32,7 @@ import { useEffect, useState } from "react";
 import { ThemeContext } from "./Context/ThemeContext";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { changeAmdinAuth } from "./redux/Slicers/isAdmim";
+import Products from "./Pages/products";
 
 function App() {
   // *lang
