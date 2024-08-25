@@ -19,18 +19,25 @@ import { useContext } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import LangDrop from "../LangDrop/LangDrop";
+import { changeAmdinAuth } from "../../redux/Slicers/isAdmim";
 
 
-const navigation = [
-  { name: "Home", href: "", current: true },
-  { name: "Products", href: "products", current: false },
-  { name: "categories", href: "categories", current: false },
-  { name: "Favorites", href: "favorites", current: false },
-  { name: "Dashboard", href: "dashboard", current: false },
-];
+
 
 export default function Navbar() {
+  const translation =useSelector((state)=>state.langSlicer.translation)
+  const iSAdmin =useSelector((state)=>state.isAdmim.isAdmin)
 
+  const navigation = [
+    { name:translation.Home, href: "", current: true },
+    { name:translation.Products, href: "products", current: false },
+  ];
+  const adminPanal = [
+    { name:translation.Home, href: "", current: true },
+    { name:translation.Products, href: "products", current: false },
+    { name:translation.Dashboard, href: "dashboard", current: false },
+  ];
   const {theme,setTheme} = useContext(ThemeContext);
 
   const changeTheme = (event) => {
@@ -47,6 +54,11 @@ export default function Navbar() {
     dispatch(changeAuth(false));
     navigate("/");
   };
+  const AdminLogOut = () => {
+    localStorage.removeItem("ad");
+    dispatch(changeAmdinAuth(false));
+    navigate("/");
+  };
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
@@ -59,7 +71,7 @@ export default function Navbar() {
           <>
             <div className="customContainer ">
               <div className="relative flex h-16 items-center justify-between">
-                <div className="absolute inset-y-0 left-0 flex items-center md:hidden">
+                {!iSAdmin && <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                   {/* Mobile menu button*/}
                   <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5" />
@@ -70,7 +82,7 @@ export default function Navbar() {
                       <Bars3Icon className="block h-6 w-6" aria-hidden="true" />
                     )}
                   </DisclosureButton>
-                </div>
+                </div>}
                 {/* <div className="flex flex-1 items-center  md:justify-between ms-10 sm:items-stretch sm:justify-start"> */}
 
                 <div className="flex flex-shrink-0 items-center ms-10 lg:ms-0 ">
@@ -85,7 +97,7 @@ export default function Navbar() {
                   </span>
                   {/* </div> */}
                 </div>
-                <div className="hidden sm:ml-6 md:block">
+                {!iSAdmin && <div className="hidden sm:ml-6 lg:block">
                   <div className="flex space-x-4 ">
                     {navigation.map((item) => (
                       <NavLink
@@ -100,10 +112,26 @@ export default function Navbar() {
                       </NavLink>
                     ))}
                   </div>
-                  
-                </div>
+                </div>}
+                {iSAdmin && <div className="hidden sm:ml-6 lg:block">
+                  <div className="flex space-x-4 ">
+                    {adminPanal.map((item) => (
+                      <NavLink
+                        key={item.name}
+                        to={item.href}
+                        className={classNames(
+                          "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                        )}
+                        aria-current={item.current ? "page" : undefined}
+                      >
+                        {item.name}
+                      </NavLink>
+                    ))}
+                  </div>
+                </div>}
                 {/* theme */}
                 <div className="flex flex-row justify-center items-center">
+                  <LangDrop/>
                   <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
                         <option value="light" >Light</option>
                         <option value="dark">Dark</option>
@@ -113,9 +141,9 @@ export default function Navbar() {
                   }
                 </div>
 
-                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className="me-5 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {}
-                  {!isUserLoggedIn && (
+                  {(!isUserLoggedIn && !iSAdmin) &&  (
                     <NavLink
                       to={"login"}
                       className={classNames(
@@ -123,10 +151,10 @@ export default function Navbar() {
                       )}
                       aria-current={"page"}
                     >
-                      Login
+                      {translation.Login} 
                     </NavLink>
                   )}
-                  {!isUserLoggedIn && (
+                  {(!isUserLoggedIn && !iSAdmin )&& (
                     <NavLink
                       to={"register"}
                       className={classNames(
@@ -134,8 +162,19 @@ export default function Navbar() {
                       )}
                       aria-current={"page"}
                     >
-                      Register
+                      {translation.Register} 
                     </NavLink>
+                  )}
+                  {iSAdmin && (
+                    <span
+                    onClick={AdminLogOut}
+                      className={classNames(
+                        "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      aria-current={"page"}
+                    >
+                      log out 
+                    </span>
                   )}
                   {/* {<Link
 
@@ -186,7 +225,7 @@ export default function Navbar() {
                               to="cart"
                               className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Cart <i className="fa-solid fa-cart-shopping"></i>
+                              {translation.Cart} <i className="fa-solid fa-cart-shopping"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
@@ -194,7 +233,7 @@ export default function Navbar() {
                               to="favorites"
                               className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              favourites <i className="fa-regular fa-heart"></i>
+                              {translation.Favorites}  <i className="fa-regular fa-heart"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
@@ -202,7 +241,7 @@ export default function Navbar() {
                               to="allorders"
                               className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Orders <i className="fa-solid fa-wallet"></i>
+                              {translation.Orders}  <i className="fa-solid fa-wallet"></i>
                             </Link>
                           </MenuItem>
                           <MenuItem>
@@ -210,7 +249,7 @@ export default function Navbar() {
                               onClick={logOut}
                               className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"
                             >
-                              Sign out{" "}
+                              {translation.LogOut} {" "}
                               <i className="fa-solid fa-arrow-right-from-bracket"></i>
                             </button>
                           </MenuItem>
@@ -221,8 +260,8 @@ export default function Navbar() {
                 </div>
               </div>
 
-              {
-                <DisclosurePanel className="md:hidden flex  items-center justify-center flex-col">
+              {!iSAdmin &&
+                <DisclosurePanel className="lg:hidden flex  items-center justify-center flex-col">
                   <div className="space-y-1 px-2 pb-3 pt-2">
                     {navigation.map((item) => (
                       <NavLink

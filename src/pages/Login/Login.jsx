@@ -6,15 +6,17 @@ import * as Yup from 'yup';
 import { Link, useNavigate } from 'react-router-dom';
 import loginImg from "../../assets/images/login.png";
 import Particlee from '../../component/Particles/Particles';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { changeAuth } from '../../redux/Slicers/isLoggedIn';
+import { changeAmdinAuth } from '../../redux/Slicers/isAdmim';
 export default function Login() {
   let [isloading, setIsloading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
   let [isFormActive, setIsFormActive] = useState(false); // Add this state for controlling particles
   const navigate = useNavigate();
   const dispatch =useDispatch()
-  
+  const translation =useSelector((state)=>state.langSlicer.translation)
+
   const validationSchema = Yup.object({
     email: Yup.string().required("Email is required"),
     password: Yup.string().required("password is required"),
@@ -30,9 +32,18 @@ export default function Login() {
   });
 
   function login() {
-    setIsloading(true);
-    setErrorMessage("");
-    axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', formik.values)
+    if(formik.values.email.includes('@admin')){
+      if(formik.values.email=='ama@admin.com' && formik.values.password=='m1234567'){
+        dispatch(changeAmdinAuth(true))
+        localStorage.setItem("ad", true);
+        navigate("/dashboard")
+      }
+    }
+    else{
+
+      setIsloading(true);
+      setErrorMessage("");
+      axios.post('https://ecommerce.routemisr.com/api/v1/auth/signin', formik.values)
       .then((response) => {
         dispatch(changeAuth(true))
         localStorage.setItem("token", response.data.token);
@@ -43,8 +54,9 @@ export default function Login() {
         setIsloading(false);
         setErrorMessage(error.response.data.message);
       });
+    }
   }
-
+  
   // Handle focus and blur to control particles visibility
   const handleFocus = () => setIsFormActive(true);
   const handleBlur = () => setIsFormActive(false);
@@ -55,7 +67,7 @@ export default function Login() {
       <div className='my-10 customContainer'>
         <div className="grid grid-cols-12 ">
           <div className="md:col-span-5 col-start-2 col-span-10 md:col-start-1 self-start shadow-2xl border p-5">
-            <h1 className="text-2xl mb-7 dark:text-gray-200">Login Now</h1>
+            <h1 className="text-2xl mb-7 dark:text-gray-200">{translation.LoginNow}</h1>
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-6 relative">
                 <input 
@@ -69,7 +81,7 @@ export default function Login() {
                   className="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-black focus:outline-none focus:ring-0 focus:border-black peer" 
                   placeholder="" 
                 />
-                <label htmlFor="email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Email address</label>
+                <label htmlFor="email" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">{translation.EmailAddress}</label>
                 {formik.errors.email && formik.touched.email && <p className='bg-red-300 text-white p-1 rounded-md my-1 text-sm'>{formik.errors.email}</p>}
               </div>
               <div className="mb-6 relative">
@@ -84,13 +96,13 @@ export default function Login() {
                   className="block rounded-t-lg px-2.5 pb-2.5 pt-5 w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-black focus:outline-none focus:ring-0 focus:border-black peer" 
                   placeholder="" 
                 />
-                <label htmlFor="password" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">Password</label>
+                <label htmlFor="password" className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto">{translation.Password}</label>
                 {formik.errors.password && formik.touched.password && <p className='bg-red-300 text-white p-1 rounded-md my-1 text-sm'>{formik.errors.password}</p>}
               </div>
               {errorMessage && <p className='bg-red-300 text-white p-1 rounded-md my-4 text-sm'>{errorMessage}</p>}
-              <Link to={"/restpass"} className='mb-2 text-black underline dark:text-gray-200'>forget your password?</Link>
-              <button type="submit" disabled={isloading} className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                {!isloading ? "Login" : <i className='fas fa-spinner fa-spin mx-4'></i>}
+              <Link to={"/restpass"} className='mb-2 text-black underline dark:text-gray-200'>{translation.Forget}</Link>
+              <button type="submit" disabled={isloading} className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-white dark:text-black">
+                {!isloading ? translation["Login"]: <i className='fas fa-spinner fa-spin mx-4'></i>}
               </button>
             </form>
           </div>

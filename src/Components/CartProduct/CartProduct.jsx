@@ -17,7 +17,7 @@ export default function CartProduct({product,updateProductCount ,fireRemoveToast
         </div>
         <div className="  col-span-4 sm:col-span-3 mb-3 px-3  ">
         <button onClick={()=>(fireRemoveToast(product.product._id))} className=" block ms-auto text-center mb-2 text-red-600 font-semibold cursor-pointer  hover:text-red-800 rounded transition-all "> <li className="fa fa-trash me-1"></li></button>
-          <span className="rounded ms-auto border flex justify-between items-center py-1 px-2 rounded-md bg-slate-200">
+          <span className="rounded ms-auto border flex justify-between items-center py-1 px-2 rounded-md bg-slate-200 dark:bg-slate-800">
           <button onClick={()=>{updateProductCount(product.product._id,product.count -1),product.count>1?setCount(product.count-1):null}} className="text-center mx-2 text-3xl">-</button>
           <p className="text-center ">{count}</p>
           <button  onClick={()=>{setCount(product.count+1),updateProductCount(product.product._id,product.count +1)}} className="text-center mx-2 text-3xl">+</button>

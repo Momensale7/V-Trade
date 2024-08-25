@@ -8,3 +8,13 @@
 .customContainer {
     @apply mx-auto px-6 lg:px-0 lg:w-[90%];
   }
+  .home{
+    height: 100vh;
+    background-image: url(./assets/images/hero.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.homeText{
+    height: 100%;
+}

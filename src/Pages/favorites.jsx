@@ -7,8 +7,7 @@ import { faHeart, faStar, faStarHalf } from "@fortawesome/free-solid-svg-icons";
 function Favorites(){
     const favorites = useSelector((state) => state.favorites.favoriteProducts);
     const favoritesNumber = favorites.length;
-
-
+    const translation =useSelector((state)=>state.langSlicer.translation)
     // return (
     //     <div className="container mx-auto my-8 px-4">
     //         {favorites.length < 1 ? (
@@ -41,7 +40,7 @@ function Favorites(){
 
         
         <div className="customContainer my-10">
-            <h1 className="text-3xl my-7 dark:text-white">My Favorites</h1>
+            <h1 className="text-3xl my-7 dark:text-white text-center">{translation.Favorites}</h1>
 
             {favorites.length < 1 ? <div className="text-center w-full font-extrabold text-3xl font-mono text-indigo-400 py-28">No Favorite Products</div> : 
                 <div className="grid sm:grid-cols-2 xs:grid-cols-1 gap-x-8 gap-y-8">

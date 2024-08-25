@@ -120,7 +120,7 @@ export default function Cart() {
 
 
   return (
-    <div className="my-10 customContainer'">
+    <div className="my-10 customContainer dark:text-white">
       {isLoading && <Loader />}
       {!isLoading && <h1 className="text-center font-bold my-10 text-4xl">Your Cart</h1>}
       {!isLoading && (userCart == undefined || userCart?.numOfCartItems == 0) && <h1 className="text-center mt-10 font-bold h-screen"> No product in your cart</h1>}

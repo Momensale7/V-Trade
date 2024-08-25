@@ -7,8 +7,11 @@ import { useNavigate } from "react-router-dom";
 import loginImg from "../../assets/images/login.png";
 import { toast, ToastContainer } from "react-toastify";
 import Particlee from "../../component/Particles/Particles";
+import { useSelector } from "react-redux";
 
 export default function Register() {
+  const translation =useSelector((state)=>state.langSlicer.translation)
+
   let [isloading, setIsloading] = useState(false);
   let [errorMessage, setErrorMessage] = useState("");
   let [isFormActive, setIsFormActive] = useState(false); // & Add this state for controlling particles
@@ -87,7 +90,7 @@ export default function Register() {
       <div className="my-10 customContainer ">
         <div className="grid grid-cols-12">
           <div className="md:col-span-5 col-start-2 col-span-10 md:col-start-1  shadow-2xl border p-5 ">
-            <h1 className="text-2xl mb-7 dark:text-gray-200">Register Now :</h1>
+            <h1 className="text-2xl mb-7 dark:text-gray-200">{translation.RegisterNow}</h1>
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-6 relative">
                 <input
@@ -108,7 +111,7 @@ export default function Register() {
                   htmlFor="name"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  name
+                  {translation.Name}
                 </label>
                 {formik.errors.name && formik.touched.name && (
                   <p className="bg-red-300 text-white p-1 rounded-md my-1 text-sm ">
@@ -135,7 +138,7 @@ export default function Register() {
                   htmlFor="phone"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  Phone number
+                  {translation.PhoneNumber}
                 </label>
                 {formik.errors.phone && formik.touched.phone && (
                   <p className="bg-red-300 text-white p-1 rounded-md my-1 text-sm ">
@@ -162,7 +165,7 @@ export default function Register() {
                   htmlFor="email"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  Email address
+                  {translation.EmailAddress}
                 </label>
                 {formik.errors.email && formik.touched.email && (
                   <p className="bg-red-300 text-white p-1 rounded-md my-1 text-sm ">
@@ -189,7 +192,7 @@ export default function Register() {
                   htmlFor="password"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  Password
+                  {translation.Password}
                 </label>
                 {formik.errors.password && formik.touched.password && (
                   <p className="bg-red-300 text-white p-1 rounded-md my-1 text-sm ">
@@ -216,7 +219,7 @@ export default function Register() {
                   htmlFor="confirm_password"
                   className="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-4 z-10 origin-[0] start-2.5 peer-focus:text-black peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-4 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
                 >
-                  Confirm password
+                  {translation.ConfirmPass}
                 </label>
                 {formik.errors.rePassword && formik.touched.rePassword && (
                   <p className="bg-red-300 text-white p-1 rounded-md my-1 text-sm ">
@@ -232,10 +235,10 @@ export default function Register() {
               <button
                 type="submit"
                 disabled={isloading}
-                className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black  focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black  focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-white dark:text-black"
               >
                 {!isloading ? (
-                  "register"
+                  translation['Register']
                 ) : (
                   <i className="fas fa-spinner fa-spin mx-4"></i>
                 )}{" "}

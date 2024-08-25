@@ -23,15 +23,21 @@ import ProudctsAdmin from "./component/productsdash/ProudctsAdmin";
 import AddProduct from "./component/addproduct/AddProduct";
 import Shipping from "./Pages/Shipping/Shipping";
 import Allorders from "./Pages/Allorders/Allorders";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { changeAuth } from "./redux/Slicers/isLoggedIn";
 import ResetCode from "./Pages/ResetCode/ResetCode";
 import UpdatePasswoed from "./Pages/UpdatePasswoed/UpdatePasswoed";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
 import { useEffect, useState } from "react";
 import { ThemeContext } from "./Context/ThemeContext";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { changeAmdinAuth } from "./redux/Slicers/isAdmim";
 
 function App() {
+  // *lang
+  const lang =useSelector((state)=>state.langSlicer.language)
+  
+    const [currentLang,setCurrentLang] =useState()
    // !theme
   const [theme,setTheme] = useState(localStorage.getItem('theme'));
   useEffect(() => {
@@ -42,6 +48,7 @@ function App() {
     }
   } ,[theme])
 
+  // eslint-disable-next-line no-unused-vars
   const handlDarkMode = () =>{
     setTheme(theme === "dark"? 'light' : 'dark')
   }
@@ -52,12 +59,23 @@ function App() {
     }
   };
   checkToken();
+  const checkAdmin = () => {
+    if (localStorage.getItem("ad") != null) {
+      dispatch(changeAmdinAuth(true));
+    }
+  };
+  checkAdmin()
+  checkToken();
+  useEffect(()=>{
+    setCurrentLang(lang)
+  },[lang])
 
   return (
     <>
       <BrowserRouter>
       <ThemeContext.Provider value={{theme,setTheme}}>
-        <div className="dark:bg-gray-800">
+        <div className="dark:bg-gray-800" >
+          <div dir={currentLang==="ar"?"rtl":"ltr"}>
           <Navbar />
           <ToastContainer />
           <Routes>
@@ -71,6 +89,9 @@ function App() {
             <Route path="/product/:productID" element={<ProductDetails />} />
             <Route path="/favorites" element={<Favorites />} />
                         <Route path='/products' element={<Products />}/>
+                        <Route path='/shipping' element={<Shipping />}/>
+                        <Route path='/allorders' element={<Allorders />}/>
+                        <Route path='/cart' element={<Cart />}/>
 
             <Route path="/dashboard" element={<Dashboard />}>
               <Route index element={<Stats />} />
@@ -82,6 +103,7 @@ function App() {
             </Route>
           </Routes>
           <Footer />
+          </div>
           </div>
         </ThemeContext.Provider>
       </BrowserRouter>

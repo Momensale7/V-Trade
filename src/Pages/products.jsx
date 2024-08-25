@@ -9,6 +9,8 @@ import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { ThemeContext } from "../Context/ThemeContext";
 
 function Products() {
+  const translation =useSelector((state)=>state.langSlicer.translation)
+
   const [categoris, setCategoris] = useState([]);
   const [categoryID, setCategoryID] = useState("");
   const dispatch = useDispatch();
@@ -134,7 +136,7 @@ function Products() {
 
       <div className="basis-[25%] border-2 rounded-xl p-3 h-fit my-5 mx-4">
         <div>
-          <h1 className="font-bold py-2 dark:text-slate-300">Filters</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">{translation.Filters}</h1>
         </div>
         <hr />
         <div>
@@ -151,7 +153,7 @@ function Products() {
             className="text-xs text-slate-400 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
             onClick={() => setCategoryID("")}
           >
-            All
+            {translation.All}
           </p>
           {categoris.length > 0 &&
             categoris.map((cat) => (
@@ -166,16 +168,16 @@ function Products() {
         </div>
         <hr />
         <div className="my-2">
-          <h1 className="font-bold py-2 dark:text-slate-300">Price</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">{translation.Price}</h1>
           <select
             onChange={(e) => setSort(e.target.value)}
             className="w-full bg-gray-200 rounded-lg py-2  cursor-pointer"
           >
-            <option value="price">Price: Low to high</option>
-            <option value="-price">Price: High to low</option>
+            <option value="price">{translation.PriceL}</option>
+            <option value="-price">{translation.Priceh}</option>
           </select>
           <br />
-          <span className="dark:text-gray-400">Min Price</span>
+          <span className="dark:text-gray-400">{translation.MinPrice}</span>
           <br />
           <span className="text-blue-600">${price}</span>
           <input
@@ -185,7 +187,7 @@ function Products() {
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
             onChange={(e) => getPrice(e)}
           />
-          <span className="dark:text-gray-400">Max Price</span>
+          <span className="dark:text-gray-400">{translation.maxPrice}</span>
           <br />
           <span className="text-blue-600">${maxPrice}</span>
           <input
@@ -199,7 +201,7 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2 dark:text-slate-300">Colors</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">{translation.Colors}</h1>
         </div>
         <div className="flex flex-row flex-wrap gap-3 my-3">
           {[
@@ -221,7 +223,7 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2 dark:text-slate-300">Size</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">{translation.Size}</h1>
         </div>
         <div>
           {["Small", "Medium", "Larg", "X-Larg", "XX-Larg"].map(
@@ -237,10 +239,10 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2 dark:text-slate-300">Dress Style</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">{translation.DressStyle}</h1>
         </div>
         <div>
-          {["Casual", "Formal", "Larg", "Party", "Gym"].map((style, index) => (
+          {[translation.Casual, translation.Formal, translation.Larg, translation.Party, translation.Gym].map((style, index) => (
             <p
               key={index}
               className="text-xs text-slate-400 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
