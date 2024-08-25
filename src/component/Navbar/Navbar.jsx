@@ -132,14 +132,15 @@ export default function Navbar() {
                 </div>}
                 {/* theme */}
                 <div className={`flex flex-row justify-center items-center ${myLang=='ar'?'me-10':""}`}>
-                  <LangDrop />
-                  <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
+                  
+                  <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium  sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
                     <option value="light" >Light</option>
                     <option value="dark">Dark</option>
                   </select>
                   {theme === 'dark' ? <FontAwesomeIcon icon={faMoon} className="text-white text-xl" /> :
                     <FontAwesomeIcon icon={faSun} className="text-white text-xl" />
                   }
+                  <LangDrop />
                 </div>
 
                 <div className="hidden lg:flex me-5 inset-y-0 right-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

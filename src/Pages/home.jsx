@@ -3,8 +3,9 @@
 // import { fetchProducts } from "../redux/Slicers/getProductsSlice";
 // import Loader from "../Components/Loader/loader";
 import { useSelector } from "react-redux";
-import Card from "../Components/card";
+// import Card from "../Components/card";
 import { Link } from "react-router-dom";
+import Products from "./products";
 // import { Link } from "react-router-dom";
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
@@ -14,9 +15,9 @@ function Home() {
   const translation =useSelector((state)=>state.langSlicer.translation)
   const lang =useSelector((state)=>state.langSlicer.language)
 
-  const adminProducts = useSelector(
-    (state) => state.adminProducts.adminProducts
-  );
+  // const adminProducts = useSelector(
+  //   (state) => state.adminProducts.adminProducts
+  // );
 
   //   const dispatch = useDispatch();
   //   const { products, status, error } = useSelector((state) => state.products);
@@ -81,7 +82,9 @@ function Home() {
         </section>
       <div className="customContainer my-10">
         <h2 className="text-center font-bold my-10 text-4xl">{translation.Products}</h2>
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-8 gap-y-8">
+        <Products/>
+        </div>
+        {/* <div className="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-8 gap-y-8">
           {adminProducts.map((product) => (
             <Card
               key={product.id}
@@ -95,7 +98,7 @@ function Home() {
             />
           ))}
         </div>
-      </div>
+      </div> */}
       {/* <div className="text-center my-5 text-3xl">
         <FontAwesomeIcon
           icon={faAngleLeft}
