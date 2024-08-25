@@ -55,7 +55,7 @@ export default function Login() {
       <div className='my-10 customContainer'>
         <div className="grid grid-cols-12 ">
           <div className="md:col-span-5 col-start-2 col-span-10 md:col-start-1 self-start shadow-2xl border p-5">
-            <h1 className="text-2xl mb-7">Login Now</h1>
+            <h1 className="text-2xl mb-7 dark:text-gray-200">Login Now</h1>
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-6 relative">
                 <input 
@@ -88,7 +88,7 @@ export default function Login() {
                 {formik.errors.password && formik.touched.password && <p className='bg-red-300 text-white p-1 rounded-md my-1 text-sm'>{formik.errors.password}</p>}
               </div>
               {errorMessage && <p className='bg-red-300 text-white p-1 rounded-md my-4 text-sm'>{errorMessage}</p>}
-              <Link to={"/restpass"} className='mb-2 text-black underline'>forget your password?</Link>
+              <Link to={"/restpass"} className='mb-2 text-black underline dark:text-gray-200'>forget your password?</Link>
               <button type="submit" disabled={isloading} className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                 {!isloading ? "Login" : <i className='fas fa-spinner fa-spin mx-4'></i>}
               </button>

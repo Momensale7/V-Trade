@@ -56,9 +56,9 @@ function ProductDetails(){
                 ))}
             </div>
             <div className="basis-[35%]">
-                <img src={product.imageCover} alt="" className="rounded-2xl border-2 h-[34rem] drop-shadow-xl w-full hover:border-gray-500 cursor-pointer"/>
+                <img src={product.imageCover} alt="" className="rounded-2xl border-2 h-[36rem] drop-shadow-xl w-full hover:border-gray-500 cursor-pointer"/>
             </div>
-            <div className="basis-[50%] flex flex-col gap-y-7">
+            <div className="basis-[50%] flex flex-col gap-y-7 dark:text-gray-200">
                 <h1 className="font-black text-4xl">{product.title}</h1>
                 <div>
                     <FontAwesomeIcon icon={faStar} className='text-sm pl-1 text-yellow-300 cursor-pointer'/>
@@ -78,7 +78,7 @@ function ProductDetails(){
                     ))}
                 </div>
                 <hr />
-                <div className="flex flex-row gap-3">
+                <div className="flex flex-row gap-3 text-black">
                     <div className="bg-gray-300 rounded-2xl px-3 basis-1/3 flex justify-between items-center">
                         <FontAwesomeIcon icon={faMinus} className="cursor-pointer" onClick={() => decreamentProducts()}/>
                         <span>{productsNumber}</span>

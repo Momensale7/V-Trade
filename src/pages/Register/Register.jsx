@@ -87,7 +87,7 @@ export default function Register() {
       <div className="my-10 customContainer ">
         <div className="grid grid-cols-12">
           <div className="md:col-span-5 col-start-2 col-span-10 md:col-start-1  shadow-2xl border p-5 ">
-            <h1 className="text-2xl mb-7">Register Now :</h1>
+            <h1 className="text-2xl mb-7 dark:text-gray-200">Register Now :</h1>
             <form onSubmit={formik.handleSubmit}>
               <div className="mb-6 relative">
                 <input

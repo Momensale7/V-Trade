@@ -76,8 +76,9 @@ function Card({ title, image, price, id, rate, currentProduct, stock }) {
 
   return (
     <>
-      <div className="hover:scale-105 hover:drop-shadow-lg duration-300">
-        <div className="bg-white drop-shadow-xl rounded-lg overflow-hidden h-80">
+
+      <div className="hover:scale-105 hover:drop-shadow-lg duration-300 dark:text-gray-300">
+        <div className="bg-white dark:bg-gray-900 drop-shadow-xl rounded-lg overflow-hidden h-80">
           <Link to={`/product/${id}`}>
             <img src={image} className=" w-full h-full cursor-pointer" />
           </Link>
@@ -87,7 +88,9 @@ function Card({ title, image, price, id, rate, currentProduct, stock }) {
             <h2 className="font-bold text-lg cursor-pointer">{title}</h2>
           </Link>
           <div>
-            {/* <FontAwesomeIcon
+
+            <FontAwesomeIcon
+
               icon={faStar}
               className="text-sm pl-1 text-yellow-300 cursor-pointer"
             />
@@ -106,9 +109,11 @@ function Card({ title, image, price, id, rate, currentProduct, stock }) {
             <FontAwesomeIcon
               icon={faStarHalf}
               className="text-sm pl-1 text-yellow-300 cursor-pointer"
-            /> */}
-            {/* <span className="font-bold">{rate}/</span>
-            <span>5</span> */}
+
+            /> 
+            <span className="font-bold">{rate}/</span>
+            <span>5</span>
+
             {stock && (
               <>
                 <span className="font-bold">{stock}</span>
@@ -136,7 +141,9 @@ function Card({ title, image, price, id, rate, currentProduct, stock }) {
           <FontAwesomeIcon
             icon={faHeart}
             className={`mx-4 hover:scale-125 duration-150 ${
-              isFavorite === true ? "text-red-600" : "text-black"
+
+              isFavorite === true ? "text-red-600" : "text-black dark:text-gray-300"
+
             } text-2xl hover:text-red-600 cursor-pointer`}
             title={
               isFavorite === true ? "Remove From Favorites" : "Add To Favorites"

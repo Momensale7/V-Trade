@@ -15,6 +15,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { changeAuth } from "../../redux/Slicers/isLoggedIn";
 
+import { useContext } from "react";
+import { ThemeContext } from "../../Context/ThemeContext";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+
+
 const navigation = [
   { name: "Home", href: "", current: true },
   { name: "Products", href: "products", current: false },
@@ -24,6 +30,15 @@ const navigation = [
 ];
 
 export default function Navbar() {
+
+  const {theme,setTheme} = useContext(ThemeContext);
+
+  const changeTheme = (event) => {
+    setTheme(event.target.value)
+    localStorage.setItem('theme' , event.target.value);
+    // console.log(theme)
+  }
+  
   let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -37,7 +52,9 @@ export default function Navbar() {
   }
   return (
     <>
-      <Disclosure as="nav" className="bg-black relative z-[10] ">
+
+      <Disclosure as="nav" className="bg-black dark:bg-gray-900 relative z-[10] ">
+
         {({ open }) => (
           <>
             <div className="customContainer ">
@@ -83,6 +100,17 @@ export default function Navbar() {
                       </NavLink>
                     ))}
                   </div>
+                  
+                </div>
+                {/* theme */}
+                <div className="flex flex-row justify-center items-center">
+                  <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
+                        <option value="light" >Light</option>
+                        <option value="dark">Dark</option>
+                  </select>
+                  {theme === 'dark'?  <FontAwesomeIcon icon={faMoon} className="text-white text-xl"/> : 
+                    <FontAwesomeIcon icon={faSun} className="text-white text-xl"/>
+                  }
                 </div>
 
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">

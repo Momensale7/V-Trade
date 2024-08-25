@@ -1,11 +1,12 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../redux/Slicers/getProductsSlice";
 import Loader from "../Components/Loader/loader";
 import Card from "../Components/card";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import { ThemeContext } from "../Context/ThemeContext";
 
 function Products() {
   const [categoris, setCategoris] = useState([]);
@@ -61,6 +62,7 @@ function Products() {
       })
       .catch((err) => console.log(err));
   }, []);
+
 
   // Navigation
   const goToPrevPage = () => {
@@ -119,13 +121,20 @@ function Products() {
     content = <div>{error}</div>;
   }
 
+  // !theme
+  const {theme,setTheme} = useContext(ThemeContext);
+
+  const handlDarkMode = () =>{
+    setTheme(theme === "dark"? 'light' : 'dark')
+  }
+
   return (
     <div className="flex flex-col md:flex-row gap-4">
       {/* Filtration */}
 
-      <div className="basis-[25%] border-2 rounded-xl p-3 h-fit">
+      <div className="basis-[25%] border-2 rounded-xl p-3 h-fit my-5 mx-4">
         <div>
-          <h1 className="font-bold py-2">Filters</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">Filters</h1>
         </div>
         <hr />
         <div>
@@ -139,7 +148,7 @@ function Products() {
         </div>
         <div>
           <p
-            className="text-xs text-slate-500 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
+            className="text-xs text-slate-400 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
             onClick={() => setCategoryID("")}
           >
             All
@@ -148,7 +157,7 @@ function Products() {
             categoris.map((cat) => (
               <p
                 key={cat._id}
-                className="text-xs text-slate-500 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
+                className="text-xs text-slate-400 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
                 onClick={() => filterByCategory(cat._id)}
               >
                 {cat.name}
@@ -157,7 +166,7 @@ function Products() {
         </div>
         <hr />
         <div className="my-2">
-          <h1 className="font-bold py-2">Price</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">Price</h1>
           <select
             onChange={(e) => setSort(e.target.value)}
             className="w-full bg-gray-200 rounded-lg py-2  cursor-pointer"
@@ -166,9 +175,9 @@ function Products() {
             <option value="-price">Price: High to low</option>
           </select>
           <br />
-          <span>Min Price</span>
+          <span className="dark:text-gray-400">Min Price</span>
           <br />
-          <span className="text-orange-600">${price}</span>
+          <span className="text-blue-600">${price}</span>
           <input
             type="range"
             min={0}
@@ -176,9 +185,9 @@ function Products() {
             className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-500"
             onChange={(e) => getPrice(e)}
           />
-          <span>Max Price</span>
+          <span className="dark:text-gray-400">Max Price</span>
           <br />
-          <span className="text-orange-600">${maxPrice}</span>
+          <span className="text-blue-600">${maxPrice}</span>
           <input
             type="range"
             value={maxPrice}
@@ -190,7 +199,7 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2">Colors</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">Colors</h1>
         </div>
         <div className="flex flex-row flex-wrap gap-3 my-3">
           {[
@@ -212,7 +221,7 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2">Size</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">Size</h1>
         </div>
         <div>
           {["Small", "Medium", "Larg", "X-Larg", "XX-Larg"].map(
@@ -228,13 +237,13 @@ function Products() {
         </div>
         <hr />
         <div>
-          <h1 className="font-bold py-2">Dress Style</h1>
+          <h1 className="font-bold py-2 dark:text-slate-300">Dress Style</h1>
         </div>
         <div>
           {["Casual", "Formal", "Larg", "Party", "Gym"].map((style, index) => (
             <p
               key={index}
-              className="text-xs text-slate-500 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
+              className="text-xs text-slate-400 py-2 cursor-pointer hover:scale-105 hover:text-blue-700 hover:font-bold duration-150"
             >
               {style}
             </p>
@@ -243,7 +252,8 @@ function Products() {
       </div>
 
       {/* Products */}
-      <div className="basis-[75%] mt-10 px-10">
+      <div className="basis-[75%] my-5 px-7">
+
         {content}
         <div className="text-center my-5 text-3xl">
           <FontAwesomeIcon
