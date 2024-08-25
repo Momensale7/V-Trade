@@ -83,7 +83,7 @@ function App() {
             <Route path="register" element={<Register />} />
             <Route path="resetPass" element={<ResetPassword />} />
             <Route path="updatepass" element={<UpdatePasswoed />} />
-            <Route path="restcode" element={<ResetCode />} />
+            <Route path="resetcode" element={<ResetCode />} />
             <Route path="/" element={<Home />} />
             <Route path="/home" element={<Home />} />
             <Route path="/product/:productID" element={<ProductDetails />} />

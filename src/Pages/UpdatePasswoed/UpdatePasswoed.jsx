@@ -31,7 +31,7 @@ export default function UpdatePasswoed() {
       .then((response) => {
         fireToast()
         setIsloading(false);
-        navigate("/")
+        navigate("/login")
       })
       .catch((error) => {
         // console.log(error.response.data.message);

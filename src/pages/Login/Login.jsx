@@ -100,7 +100,7 @@ export default function Login() {
                 {formik.errors.password && formik.touched.password && <p className='bg-red-300 text-white p-1 rounded-md my-1 text-sm'>{formik.errors.password}</p>}
               </div>
               {errorMessage && <p className='bg-red-300 text-white p-1 rounded-md my-4 text-sm'>{errorMessage}</p>}
-              <Link to={"/restpass"} className='mb-2 text-black underline dark:text-gray-200'>{translation.Forget}</Link>
+              <Link to={"/resetpass"} className='mb-2 text-black underline dark:text-gray-200'>{translation.Forget}</Link>
               <button type="submit" disabled={isloading} className="ms-auto block text-white bg-black border hover:bg-white hover:text-black focus:text-black focus:bg-white font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-white dark:text-black">
                 {!isloading ? translation["Login"]: <i className='fas fa-spinner fa-spin mx-4'></i>}
               </button>

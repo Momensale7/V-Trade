@@ -30,7 +30,7 @@ export default function ResetPassword() {
     axios.post('https://ecommerce.routemisr.com/api/v1/auth/forgotPasswords', formik.values)
       .then((response) => {
         setIsloading(false);
-        navigate("/restcode")
+        navigate("/resetcode")
       })
       .catch((error) => {
         // console.log(error.response.data.message);
