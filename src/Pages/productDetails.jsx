@@ -79,11 +79,11 @@ function ProductDetails(){
                 </div>
                 <hr />
                 <div className="flex flex-row gap-3 text-black">
-                    <div className="bg-gray-300 rounded-2xl px-3 basis-1/3 flex justify-between items-center">
+                    {/* <div className="bg-gray-300 rounded-2xl px-3 basis-1/3 flex justify-between items-center">
                         <FontAwesomeIcon icon={faMinus} className="cursor-pointer" onClick={() => decreamentProducts()}/>
                         <span>{productsNumber}</span>
                         <FontAwesomeIcon icon={faPlus} className="cursor-pointer" onClick={() => increamentProducts()}/>
-                    </div>
+                    </div> */}
                     <div className="basis-2/3">
                         <button disabled={isLoading?true:false} className="bg-black px-10 py-2 w-full rounded-3xl text-white hover:bg-yellow-300 hover:text-zinc-950" onClick={()=>{addTooCart(params.productID)}}>{!isLoading ? "Add to cart" : <i className='fas fa-spinner fa-spin mx-4'></i>}</button>
                     </div>
