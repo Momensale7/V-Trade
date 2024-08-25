@@ -36,7 +36,7 @@ import { changeAmdinAuth } from "./redux/Slicers/isAdmim";
 function App() {
   // *lang
   const lang =useSelector((state)=>state.langSlicer.language)
-  
+  const dispatch = useDispatch();
     const [currentLang,setCurrentLang] =useState()
    // !theme
   const [theme,setTheme] = useState(localStorage.getItem('theme'));
@@ -47,12 +47,12 @@ function App() {
       document.documentElement.classList.remove('dark');
     }
   } ,[theme])
-
+  
   // eslint-disable-next-line no-unused-vars
   const handlDarkMode = () =>{
     setTheme(theme === "dark"? 'light' : 'dark')
   }
-  const dispatch = useDispatch();
+  
   const checkToken = () => {
     if (localStorage.getItem("token") != null) {
       dispatch(changeAuth(true));
@@ -62,6 +62,7 @@ function App() {
   const checkAdmin = () => {
     if (localStorage.getItem("ad") != null) {
       dispatch(changeAmdinAuth(true));
+      dispatch(changeAmdinAuth(localStorage.getItem('lang')))
     }
   };
   checkAdmin()

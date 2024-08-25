@@ -36,6 +36,26 @@ const en ={
     "Cart":"Cart",
     "LogOut":"Log out",
     "Orders":"Orders",
-    
+    // *footer
+    "GetApp":"Get the V-Trade Apps",
+    "SendYou":"We will send you a link, open it on your phone to download the app",
+    "PaymentsPartner":"Payments Partner",
+    "getdel":"Get deliveries with V-Trade",
+    "appLink":"app link",
+    // *hero
+    "sale":"20 % sale on friday ",
+    "upgrade":"Upgrade Your Wardrobe with Our New Collection!",
+    // *cart
+    "sure":"Are you sure you want to delete this item?",
+    "Delete":"Delete",
+    "sureAll":"Are you sure you want to all items ?",
+    "YCart":"Your Cart",
+    "NoPro":"No product in your cart",
+    "Ordersummery":"Order summery",
+    "Total":"Total Price :",
+    "TotalItems":"Total number of items",
+    "ClearCart":"Clear cart",
+    "toCheckOut":"go to Check Out",
+    "cancel":"cancel",
 }
 export default en
