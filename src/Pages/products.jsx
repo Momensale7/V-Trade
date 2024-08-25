@@ -63,6 +63,7 @@ function Products() {
       .catch((err) => console.log(err));
   }, []);
 
+
   // Navigation
   const goToPrevPage = () => {
     if (page == 0) {
@@ -252,6 +253,7 @@ function Products() {
 
       {/* Products */}
       <div className="basis-[75%] my-5 px-7">
+
         {content}
         <div className="text-center my-5 text-3xl">
           <FontAwesomeIcon

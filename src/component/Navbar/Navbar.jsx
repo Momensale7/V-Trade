@@ -14,10 +14,12 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { changeAuth } from "../../redux/Slicers/isLoggedIn";
+
 import { useContext } from "react";
 import { ThemeContext } from "../../Context/ThemeContext";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+
 
 const navigation = [
   { name: "Home", href: "", current: true },
@@ -28,6 +30,7 @@ const navigation = [
 ];
 
 export default function Navbar() {
+
   const {theme,setTheme} = useContext(ThemeContext);
 
   const changeTheme = (event) => {
@@ -49,7 +52,9 @@ export default function Navbar() {
   }
   return (
     <>
+
       <Disclosure as="nav" className="bg-black dark:bg-gray-900 relative z-[10] ">
+
         {({ open }) => (
           <>
             <div className="customContainer ">
@@ -107,6 +112,7 @@ export default function Navbar() {
                     <FontAwesomeIcon icon={faSun} className="text-white text-xl"/>
                   }
                 </div>
+
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   {}
                   {!isUserLoggedIn && (

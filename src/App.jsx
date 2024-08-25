@@ -3,23 +3,18 @@ import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import "react-toastify/dist/ReactToastify.css"; // Import the CSS for toastify
 
-import Register from './pages/Register/Register';
-import Login from './pages/Login/Login';
-import Footer from './component/Footer/Footer';
-import Navbar from './component/Navbar/Navbar';
-
-import Home from './Pages/home';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-// import ProductDetails from './Pages/productDetails';
-// import Favorites from './Pages/favorites';
-import Products from './Pages/Products';
 
 
-
-// import Home from "./Pages/home";
-// import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import ProductDetails from "./Pages/productDetails";
 import Favorites from "./Pages/favorites";
+import Products from "./Pages/Products";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
+import Footer from "./component/Footer/Footer";
+import Navbar from "./component/Navbar/Navbar";
+import Home from "./Pages/home";
+import Cart from "./Pages/Cart/Cart";
+import { ToastContainer } from "react-toastify";
 import Dashboard from "./Pages/dashboard/Dashboard";
 import Stats from "./component/stats/Stats";
 import Setting from "./component/setting/Setting";
@@ -33,7 +28,6 @@ import { changeAuth } from "./redux/Slicers/isLoggedIn";
 import ResetCode from "./Pages/ResetCode/ResetCode";
 import UpdatePasswoed from "./Pages/UpdatePasswoed/UpdatePasswoed";
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
-import { ToastContainer } from "react-toastify";
 import { useEffect, useState } from "react";
 import { ThemeContext } from "./Context/ThemeContext";
 
@@ -51,7 +45,6 @@ function App() {
   const handlDarkMode = () =>{
     setTheme(theme === "dark"? 'light' : 'dark')
   }
-
   const dispatch = useDispatch();
   const checkToken = () => {
     if (localStorage.getItem("token") != null) {
@@ -59,7 +52,6 @@ function App() {
     }
   };
   checkToken();
-
 
   return (
     <>
