@@ -74,7 +74,7 @@ export default function Navbar() {
               <div className="relative flex h-16 items-center justify-between">
                 {!iSAdmin && <div className="absolute inset-y-0 left-0 flex items-center lg:hidden">
                   {/* Mobile menu button*/}
-                  <DisclosureButton className="relative inline-flex items-center justify-center rounded-md p-2 text-white hover:bg-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
+                  <DisclosureButton className="relative block  items-center justify-center rounded-md p-2 text-white hover:bg-gray-400 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white">
                     <span className="absolute -inset-0.5" />
                     <span className="sr-only">Open main menu</span>
                     {open ? (
@@ -86,7 +86,7 @@ export default function Navbar() {
                 </div>}
                 {/* <div className="flex flex-1 items-center  md:justify-between ms-10 sm:items-stretch sm:justify-start"> */}
 
-                <div className="flex flex-shrink-0 items-center ms-10 lg:ms-0 ">
+                <div className={`flex flex-shrink-0 items-center ${myLang=='en'?'ms-10':""} lg:ms-0 `}>
                   <img
                     className="h-12 text-center "
                     src={logo}
@@ -131,7 +131,7 @@ export default function Navbar() {
                   </div>
                 </div>}
                 {/* theme */}
-                <div className="flex flex-row justify-center items-center">
+                <div className={`flex flex-row justify-center items-center ${myLang=='ar'?'me-10':""}`}>
                   <LangDrop />
                   <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
                     <option value="light" >Light</option>
@@ -142,7 +142,7 @@ export default function Navbar() {
                   }
                 </div>
 
-                <div className="me-5 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <div className="hidden lg:flex me-5 inset-y-0 right-0  items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   { }
                   {(!isUserLoggedIn && !iSAdmin) && (
                     <NavLink
@@ -280,6 +280,39 @@ export default function Navbar() {
                         {item.name}
                       </NavLink>
                     ))}
+                    {(!isUserLoggedIn && !iSAdmin) && (
+                    <NavLink
+                      to={"login"}
+                      className={classNames(
+                        "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      aria-current={"page"}
+                    >
+                      {translation.Login}
+                    </NavLink>
+                  )}
+                  {(!isUserLoggedIn && !iSAdmin) && (
+                    <NavLink
+                      to={"register"}
+                      className={classNames(
+                        "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      aria-current={"page"}
+                    >
+                      {translation.Register}
+                    </NavLink>
+                  )}
+                  {iSAdmin && (
+                    <span
+                      onClick={AdminLogOut}
+                      className={classNames(
+                        "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
+                      )}
+                      aria-current={"page"}
+                    >
+                      log out
+                    </span>
+                  )}
                   </div>
                 </DisclosurePanel>
               }
