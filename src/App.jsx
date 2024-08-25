@@ -90,7 +90,7 @@ function App() {
             <Route path="/product/:productID" element={<ProductDetails />} />
             <Route path="/favorites" element={<Favorites />} />
                         <Route path='/products' element={<Products />}/>
-                        <Route path='/shipping' element={<Shipping />}/>
+                        <Route path='/shipping/:cartId' element={<Shipping />}/>
                         <Route path='/allorders' element={<Allorders />}/>
                         <Route path='/cart' element={<Cart />}/>
 

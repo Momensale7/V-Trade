@@ -6,9 +6,12 @@ import { useFormik } from 'formik'
 import * as Yup from "yup"
 import { useNavigate } from 'react-router-dom'
 import { toast } from "react-toastify";
+import { changeAuth } from "../../redux/Slicers/isLoggedIn";
+import { useDispatch } from "react-redux";
 
 export default function UpdatePasswoed() {
   let [isloading, setIsloading] = useState(false)
+  const dispatch =useDispatch()
   let [errorMessage, setErrorMessage] = useState("")
   const navigate = useNavigate()
   const validationSchema = Yup.object({
@@ -31,7 +34,10 @@ export default function UpdatePasswoed() {
       .then((response) => {
         fireToast()
         setIsloading(false);
-        navigate("/login")
+        dispatch(changeAuth(true))
+        localStorage.setItem("token", response.data.token);
+        setIsloading(false);
+        navigate("/");
       })
       .catch((error) => {
         // console.log(error.response.data.message);
