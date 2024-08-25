@@ -32,7 +32,7 @@ export default function Shipping() {
             "shippingAddress": formik.values,
         }, {
             params: {
-                url: "http://localhost:5173"
+                url: "https://v-trade.vercel.app/allorders"
             },
             headers: {
                 token: localStorage.getItem("token")
