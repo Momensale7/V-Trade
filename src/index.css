@@ -15,6 +15,13 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+  .homeAr{
+    height: 100vh;
+    background-image: url(./assets/images/heroar.jpg);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
 .homeText{
     height: 100%;
 }

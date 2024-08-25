@@ -26,28 +26,29 @@ import { changeAmdinAuth } from "../../redux/Slicers/isAdmim";
 
 
 export default function Navbar() {
-  const translation =useSelector((state)=>state.langSlicer.translation)
-  const iSAdmin =useSelector((state)=>state.isAdmim.isAdmin)
+  const myLang = useSelector((state) => state.langSlicer.language);
+  const translation = useSelector((state) => state.langSlicer.translation)
+  const iSAdmin = useSelector((state) => state.isAdmim.isAdmin)
+  const { theme, setTheme } = useContext(ThemeContext);
+  let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn);
+  const dispatch = useDispatch();
 
   const navigation = [
-    { name:translation.Home, href: "", current: true },
-    { name:translation.Products, href: "products", current: false },
+    { name: translation.Home, href: "", current: true },
+    { name: translation.Products, href: "products", current: false },
   ];
   const adminPanal = [
-    { name:translation.Home, href: "", current: true },
-    { name:translation.Products, href: "products", current: false },
-    { name:translation.Dashboard, href: "dashboard", current: false },
+    { name: translation.Home, href: "", current: true },
+    { name: translation.Products, href: "products", current: false },
+    { name: translation.Dashboard, href: "dashboard", current: false },
   ];
-  const {theme,setTheme} = useContext(ThemeContext);
 
   const changeTheme = (event) => {
     setTheme(event.target.value)
-    localStorage.setItem('theme' , event.target.value);
+    localStorage.setItem('theme', event.target.value);
     // console.log(theme)
   }
-  
-  let isUserLoggedIn = useSelector((state) => state.isLoggedIn.isLoggedIn);
-  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const logOut = () => {
     localStorage.removeItem("token");
@@ -131,19 +132,19 @@ export default function Navbar() {
                 </div>}
                 {/* theme */}
                 <div className="flex flex-row justify-center items-center">
-                  <LangDrop/>
+                  <LangDrop />
                   <select value={localStorage.getItem('theme')} className="cursor-pointer appearance-none rounded-md px-3 py-2 text-sm font-medium hidden sm:ml-6 md:block dark:bg-gray-900 bg-black text-white outline-none" onChange={(event) => changeTheme(event)}>
-                        <option value="light" >Light</option>
-                        <option value="dark">Dark</option>
+                    <option value="light" >Light</option>
+                    <option value="dark">Dark</option>
                   </select>
-                  {theme === 'dark'?  <FontAwesomeIcon icon={faMoon} className="text-white text-xl"/> : 
-                    <FontAwesomeIcon icon={faSun} className="text-white text-xl"/>
+                  {theme === 'dark' ? <FontAwesomeIcon icon={faMoon} className="text-white text-xl" /> :
+                    <FontAwesomeIcon icon={faSun} className="text-white text-xl" />
                   }
                 </div>
 
                 <div className="me-5 inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                  {}
-                  {(!isUserLoggedIn && !iSAdmin) &&  (
+                  { }
+                  {(!isUserLoggedIn && !iSAdmin) && (
                     <NavLink
                       to={"login"}
                       className={classNames(
@@ -151,10 +152,10 @@ export default function Navbar() {
                       )}
                       aria-current={"page"}
                     >
-                      {translation.Login} 
+                      {translation.Login}
                     </NavLink>
                   )}
-                  {(!isUserLoggedIn && !iSAdmin )&& (
+                  {(!isUserLoggedIn && !iSAdmin) && (
                     <NavLink
                       to={"register"}
                       className={classNames(
@@ -162,18 +163,18 @@ export default function Navbar() {
                       )}
                       aria-current={"page"}
                     >
-                      {translation.Register} 
+                      {translation.Register}
                     </NavLink>
                   )}
                   {iSAdmin && (
                     <span
-                    onClick={AdminLogOut}
+                      onClick={AdminLogOut}
                       className={classNames(
                         "text-white hover:bg-gray-200 hover:text-gray-900 rounded-md px-3 py-2 text-sm font-medium"
                       )}
                       aria-current={"page"}
                     >
-                      log out 
+                      log out
                     </span>
                   )}
                   {/* {<Link
@@ -219,8 +220,9 @@ export default function Navbar() {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <MenuItems className="absolute bg-black border text-center  right-0 z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none">
-                          <MenuItem>
+                        <MenuItems
+                          className={`absolute bg-black border text-center ${myLang === 'en' ? 'right-0' : 'left-0'} z-10 mt-2 w-48 origin-top-right rounded-md py-1 focus:outline-none`}>
+                            <MenuItem>
                             <Link
                               to="cart"
                               className="hover:border-b m-auto w-fit text-center block px-4 py-2 text-sm text-white"

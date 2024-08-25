@@ -11,6 +11,9 @@ import { Link } from "react-router-dom";
 
 //https://ecommerce.routemisr.com/api/v1/products?page=1&limit=5
 function Home() {
+  const translation =useSelector((state)=>state.langSlicer.translation)
+  const lang =useSelector((state)=>state.langSlicer.language)
+
   const adminProducts = useSelector(
     (state) => state.adminProducts.adminProducts
   );
@@ -66,18 +69,18 @@ function Home() {
 
   return (
     <>
-      <section className='home d-flex justify-content-center'>
-            <div className="customContainer h-screen">
+<section className={`${lang === 'en' ? 'home' : 'homeAr'} d-flex justify-content-center`}>
+<div className="customContainer h-screen">
             <div className="flex homeText justify-center items-start h-[100%] flex-col">
             <h1 className='text-[40px] text-white'>V-Trade</h1>
-            <h2 className='text-2xl text-white'>20 % sale on friday </h2>
-            <h2 className='text-2xl text-white'>Upgrade Your Wardrobe with Our New Collection!</h2>
-            <Link to={'/register'} className="px-4 py-2 bg-black border hover:bg-slate-900 cursor-pointer  text-white rounded mt-5" >register Now</Link>
+            <h2 className='text-2xl text-white'>{translation.sale}</h2>
+            <h2 className='text-2xl text-white'>{translation.upgrade}</h2>
+            <Link to={'/register'} className="px-4 py-2 bg-black border hover:bg-slate-900 cursor-pointer  text-white rounded mt-5" >{translation.RegisterNow}</Link>
             </div>
             </div>
         </section>
       <div className="customContainer my-10">
-        <h2 className="text-center font-bold my-10 text-4xl">Products</h2>
+        <h2 className="text-center font-bold my-10 text-4xl">{translation.Products}</h2>
         <div className="grid md:grid-cols-3 sm:grid-cols-2 xs:grid-cols-1 gap-x-8 gap-y-8">
           {adminProducts.map((product) => (
             <Card
